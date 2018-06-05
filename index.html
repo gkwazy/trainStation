@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TimeSheet</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <h1 class="display-4">Employee Data Management</h1>
+            <p class="lead"> A comprhensive Directoru of Employee Billable Hours</p>
+
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Current Employees
+            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Employee Name</th>
+                        <th scope="col"> Role</th>
+                        <th scope="col">Start Date</th>
+                        <th scope="col">Months Worked</th>
+                        <th scope="col">Monthly Rate ($)</th>
+                        <th scope="col">Total Billing ($)</th>
+                    </tr>
+                </thead>
+                <tbody id="employeeTable">
+
+                </tbody>
+            </table>
+        </div>
+        <div class="card">
+            <div class="card-header">
+                Add Employee
+            </div>
+            <form>
+                <div class="form-group">
+                    <label for="Name">Employee Name</label>
+                    <input id="employeeName" type="EmployeeName" class="form-control" placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label for="emplyeeRole">Role</label>
+                    <input id="role" type="role" class="form-control" placeholder="Floor Worker">
+                </div>
+                <div class="form-group">
+                    <label for="date">Start Date (DD/MM/YY-ex 01/01/18</label>
+                    <input id="startDate" type="date" class="form-control" placeholder=mm/dd/yyyy>
+                </div>
+
+                <div class="form-group">
+                    <label for="rate">Monthly Rate</label>
+                    <input id="monthlyRate" type="monthlyRate" class="form-control" placeholder="$$$">
+                </div>
+
+                <button type="submit" class="btn btn-primary submitButton">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+<script>
+    // Initialize Firebase
+    var config = {
+        apiKey: "AIzaSyB7B1ZK8f-7lHjGrwlQjIFedx9M2ezTbdI",
+        authDomain: "timesheet-45ef0.firebaseapp.com",
+        databaseURL: "https://timesheet-45ef0.firebaseio.com",
+        projectId: "timesheet-45ef0",
+        storageBucket: "timesheet-45ef0.appspot.com",
+        messagingSenderId: "1077369831779"
+    };
+    firebase.initializeApp(config);
+</script>
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+<script src="timesheet.js"></script>
+
+</html>

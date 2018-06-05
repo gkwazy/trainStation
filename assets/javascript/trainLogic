@@ -1,0 +1,48 @@
+var database = firebase.database();
+
+//initial values
+var name;
+var role;
+var date;
+var rate;
+
+$(".submitButton").on("click", function (event) {
+    event.preventDefault();
+
+    // Grabbed values from text boxes
+    name = $("#employeeName").val().trim();
+    role = $("#role").val().trim();
+    date = $("#startDate").val().trim();
+    rate = $("#monthlyRate").val().trim();
+    console.log("the stuff " + name + role + date + rate);
+
+    database.ref().push({
+        name: name,
+        role: role,
+        date: date,
+        rate: rate,
+        dateAdded: firebase.database.ServerValue.TIMESTAMP
+    });
+    $("#employeeName").val('');
+    $("#role").val('');
+    $("#startDate").val('');
+    $("#monthlyRate").val('');
+});
+
+database.ref().on("child_added", function (snapshot) {
+    console.log(snapshot.val().name);
+    console.log(snapshot.val().role);
+    console.log(snapshot.val().date);
+    console.log(snapshot.val().rate);
+
+    $("#employeeTable").append("<tr> <td scope=col >" +
+        (snapshot.val().name) + " </td> <td scope=col> " +
+        (snapshot.val().role) + " </td> <td scope=col >" +
+        (snapshot.val().date) + " </td> <td scope=col >" +
+        " N/A " + " </td> <td scope=col>" +
+        (snapshot.val().rate) + " </td> <td scope=col> " +
+        " N/A " + " </td> <td scope=col>" + " </tr>")
+    // Handle the errors
+}, function (errorObject) {
+    console.log("Errors handled: " + errorObject.code);
+});
