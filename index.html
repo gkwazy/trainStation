@@ -8,29 +8,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
         crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" media="screen" href="style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
 </head>
 
 <body>
     <div class="container">
         <div class="jumbotron">
-            <h1 class="display-4">Employee Data Management</h1>
-            <p class="lead"> A comprhensive Directoru of Employee Billable Hours</p>
+            <h1 class="display-4">Train Time Keeper</h1>
+            <p class="lead"> Enter in the time the first train leaves and how often it comes around and we will do the rest.
+            </p>
 
         </div>
         <div class="card">
             <div class="card-header">
-                Current Employees
+                Train's Time schedule
             </div>
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Employee Name</th>
-                        <th scope="col"> Role</th>
-                        <th scope="col">Start Date</th>
-                        <th scope="col">Months Worked</th>
-                        <th scope="col">Monthly Rate ($)</th>
-                        <th scope="col">Total Billing ($)</th>
+                        <th scope="col">Train Name</th>
+                        <th scope="col"> Destination</th>
+
+                        <th scope="col">Frequency</th>
+                        <th scope="col">Next Arrival</th>
+                        <th scope="col">Minutes Away</th>
+
                     </tr>
                 </thead>
                 <tbody id="employeeTable">
@@ -40,25 +42,25 @@
         </div>
         <div class="card">
             <div class="card-header">
-                Add Employee
+                Add Train
             </div>
             <form>
                 <div class="form-group">
-                    <label for="Name">Employee Name</label>
-                    <input id="employeeName" type="EmployeeName" class="form-control" placeholder="John Doe">
+                    <label for="Name">Train Name</label>
+                    <input id="trainName" type="trainName" class="form-control" placeholder="Golden Express">
                 </div>
                 <div class="form-group">
-                    <label for="emplyeeRole">Role</label>
-                    <input id="role" type="role" class="form-control" placeholder="Floor Worker">
+                    <label for="destination">Destination</label>
+                    <input id="destination" type="destination" class="form-control" placeholder="New York">
                 </div>
                 <div class="form-group">
-                    <label for="date">Start Date (DD/MM/YY-ex 01/01/18</label>
-                    <input id="startDate" type="date" class="form-control" placeholder=mm/dd/yyyy>
+                    <label for="firstTrainTime">First Train's Start Time</label>
+                    <input id="firstTrainTime" type="time" class="form-control" placeholder=mm/dd/yyyy>
                 </div>
 
                 <div class="form-group">
-                    <label for="rate">Monthly Rate</label>
-                    <input id="monthlyRate" type="monthlyRate" class="form-control" placeholder="$$$">
+                    <label for="frequency">Frequency</label>
+                    <input id="frequency" type="frequency" class="form-control" placeholder=minutes>
                 </div>
 
                 <button type="submit" class="btn btn-primary submitButton">Submit</button>
@@ -66,20 +68,9 @@
         </div>
     </div>
 </body>
-<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-<script>
-    // Initialize Firebase
-    var config = {
-        apiKey: "AIzaSyB7B1ZK8f-7lHjGrwlQjIFedx9M2ezTbdI",
-        authDomain: "timesheet-45ef0.firebaseapp.com",
-        databaseURL: "https://timesheet-45ef0.firebaseio.com",
-        projectId: "timesheet-45ef0",
-        storageBucket: "timesheet-45ef0.appspot.com",
-        messagingSenderId: "1077369831779"
-    };
-    firebase.initializeApp(config);
-</script>
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-<script src="timesheet.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+<script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+<script src="assets/javascript/trainLogic.js"></script>
 
 </html>
