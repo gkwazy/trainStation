@@ -17,7 +17,7 @@ var name;
 var destination;
 var firstTrainTime;
 var frequency;
-
+var minutesAway;
 
 $(".submitButton").on("click", function (event) {
     event.preventDefault();
@@ -28,18 +28,19 @@ $(".submitButton").on("click", function (event) {
     firstTrainTime = $("#firstTrainTime").val().trim();
     frequency = $("#frequency").val().trim();
     console.log("the stuff " + name + destination + firstTrainTime + frequency);
-
+    var currentTime = moment().format(`HH:mm`)
     database.ref().push({
         name: name,
         destination: destination,
         firstTrainTime: firstTrainTime,
         frequency: frequency,
-        dateAdded: firebase.database.ServerValue.TIMESTAMP
+        dateAdded: currentTime,
     });
     $("#trainName").val('');
     $("#destination").val('');
     $("#firstTrainTime").val('');
     $("#frequency").val('');
+
 });
 
 database.ref().on("child_added", function (snapshot) {
@@ -52,11 +53,41 @@ database.ref().on("child_added", function (snapshot) {
     $("#employeeTable").append("<tr> <td scope=col >" +
         (snapshot.val().name) + " </td> <td scope=col> " +
         (snapshot.val().destination) + " </td> <td scope=col >" +
-        (snapshot.val().firstTrainTime) + " </td> <td scope=col >" +
-        " N/A " + " </td> <td scope=col>" +
-        (snapshot.val().frequency) + " </td> <td scope=col> " +
-        " N/A " + " </td> <td scope=col>" + " </tr>")
+        (snapshot.val().frequency) + " </td> <td scope=col >" +
+        timeSetUp((moment().format(`HH:mm`)), snapshot.val().firstTrainTime,
+            snapshot.val().frequency) + "</td> <td scope=col>" +
+        (minutesAway) + " minutes  </td> </tr>")
     // Handle the errors
 }, function (errorObject) {
     console.log("Errors handled: " + errorObject.code);
 });
+
+function timeSetUp(currentTime, firstTrainTime, frequency) {
+    var trainTime = currentTime.split(":");
+    console.log("trainTime:" + trainTime);
+    var startTime = firstTrainTime.split(":");
+    var arrival;
+    console.log(trainTime[0] + " the minutes are " + trainTime[1]);
+    var timeInMinutes = parseInt((trainTime[0] * 60) + parseInt(trainTime[1]));
+    console.log("startTime[0]:" + startTime[0] + ", startTime[1]:" + startTime[1])
+    var startTimeMinutes = parseInt((startTime[0] * 60) + parseInt(startTime[1]));
+    console.log("startTimeMinutes:" + startTimeMinutes);
+    var i = startTimeMinutes;
+    var counter = 0;
+    if (i > timeInMinutes) {
+        arrival = startTimeMinutes;
+        minutesAway = startTimeMinutes - timeInMinutes;
+    } else {
+        if (i <= timeInMinutes) {
+            while (i <= timeInMinutes) {
+                i = parseInt(i) + parseInt(frequency);
+                arrival = i;
+                minutesAway = arrival - timeInMinutes;
+            }
+        }
+    }
+    trainTime[0] = Math.floor(arrival / 60);
+    trainTime[1] = arrival % 60;
+    console.log(trainTime[0] + ":" + trainTime[1])
+    return trainTime[0] + ":" + trainTime[1];
+}
