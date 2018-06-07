@@ -88,6 +88,9 @@ function timeSetUp(currentTime, firstTrainTime, frequency) {
     }
     trainTime[0] = Math.floor(arrival / 60);
     trainTime[1] = arrival % 60;
+    if (trainTime[1] < 10) {
+        trainTime[1] = "0" + trainTime[1];
+    }
     console.log(trainTime[0] + ":" + trainTime[1])
     return trainTime[0] + ":" + trainTime[1];
 }

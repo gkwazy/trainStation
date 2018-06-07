@@ -15,3 +15,9 @@
     margin: 20px;
     color:black;
 }
+
+body{
+    background-image: url("../images/train.jpg");
+    background-repeat:no-repeat;
+    background-size:cover;
+}
